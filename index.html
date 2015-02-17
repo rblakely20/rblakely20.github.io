@@ -1,0 +1,80 @@
+<script src="http://d3js.org/d3.v3.min.js"
+charset="utf-8"></script>
+
+<div id="biovis"></div>
+
+<script>
+var width = 400;
+var height = 300;
+var c1 = 'orange';
+var c2 = 'purple';
+var t1 = 'BioVis';
+var t2 = 'Lab 4';
+
+
+var bv = d3.select('#biovis');
+
+var svg = bv.append('svg')
+.attr('width', width)
+.attr('height', height);
+
+var group = svg.append('g');
+
+var click = false;
+
+var r1 = group.append('rect')
+.attr('x', width/4)
+.attr('y', height/4)
+.attr('width', width/2)
+.attr('height', height/2)
+.style('fill', c1)
+.style('title', textLabel)
+.on('click', function(d, i) {
+	if(click == false){
+		d3.select(this)
+		.transition()
+		.duration(500)
+		.ease('quad')
+		.attr('width', width/3)
+		.attr('height', height/3)
+		.attr('x', width/3)
+		.attr('y', height/3)
+		.style('fill', c2);
+		d3.select('#myText')
+		.transition()
+		.duration(500)
+		.ease('quad')
+		.text(t2)
+		.style('fill', c1);
+	}
+	else{
+		d3.select(this)
+		.transition()
+		.duration(500)
+		.ease('quad')
+		.attr('width', width/2)
+		.attr('height', height/2)
+		.attr('x', width/4)
+		.attr('y', height/4)
+		.style('fill', c1);
+		d3.select('#myText')
+		.transition()
+		.duration(500)
+		.ease('quad')
+		.text(t1)
+		.style('fill', c2);
+	}
+	click = !click;
+});
+
+var textLabel = group.append('text')
+.attr('id', 'myText')
+.text(t1)
+.attr('text-anchor', 'middle')
+.attr('x', width/2)
+.attr('y', height/2)
+.style('fill', c2)
+.style('font-family', 'Verdana')
+.attr('font-size', 20);
+
+</script>
